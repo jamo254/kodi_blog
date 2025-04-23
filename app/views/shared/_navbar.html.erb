@@ -1,0 +1,65 @@
+<nav class="bg-indigo-600 text-white">
+  <div class="max-w-6xl mx-auto px-4">
+    <div class="flex justify-between">
+      <div class="flex space-x-4">
+        <!-- logo -->
+        <div>
+          <a href="<%= root_path %>" class="flex items-center py-5 px-2 text-white hover:text-indigo-200">
+            <span class="font-bold">BlogApp</span>
+          </a>
+        </div>
+        <!-- primary nav -->
+        <div class="hidden md:flex items-center space-x-1">
+          <a href="<%= posts_path %>" class="py-5 px-3 text-white hover:text-indigo-200">All Posts</a>
+        </div>
+      </div>
+      <!-- secondary nav -->
+      <div class="hidden md:flex items-center space-x-1">
+        <% if user_signed_in? %>
+          <a href="<%= new_post_path %>" class="py-2 px-3 bg-indigo-700 hover:bg-indigo-500 text-white rounded transition duration-300">New Post</a>
+          <div class="py-2 px-3">
+            Signed in as <%= current_user.email %>
+          </div>
+          <%= button_to "Sign out", destroy_user_session_path, method: :delete, class: "py-2 px-3 bg-indigo-700 hover:bg-indigo-500 text-white rounded transition duration-300" %>
+        <% else %>
+          <a href="<%= new_user_session_path %>" class="py-2 px-3 bg-indigo-700 hover:bg-indigo-500 text-white rounded transition duration-300">Sign in</a>
+          <a href="<%= new_user_registration_path %>" class="py-2 px-3 bg-indigo-700 hover:bg-indigo-500 text-white rounded transition duration-300">Sign up</a>
+        <% end %>
+      </div>
+      <!-- mobile button -->
+      <div class="md:hidden flex items-center">
+        <button class="mobile-menu-button">
+          <svg class="w-6 h-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+          </svg>
+        </button>
+      </div>
+    </div>
+  </div>
+  <!-- mobile menu -->
+  <div class="mobile-menu hidden md:hidden">
+    <a href="<%= posts_path %>" class="block py-2 px-4 text-sm hover:bg-indigo-500">All Posts</a>
+    <% if user_signed_in? %>
+      <a href="<%= new_post_path %>" class="block py-2 px-4 text-sm hover:bg-indigo-500">New Post</a>
+      <div class="block py-2 px-4 text-sm">
+        Signed in as <%= current_user.email %>
+      </div>
+      <div class="block py-2 px-4 text-sm hover:bg-indigo-500">
+        <%= button_to "Sign out", destroy_user_session_path, method: :delete %>
+      </div>
+    <% else %>
+      <a href="<%= new_user_session_path %>" class="block py-2 px-4 text-sm hover:bg-indigo-500">Sign in</a>
+      <a href="<%= new_user_registration_path %>" class="block py-2 px-4 text-sm hover:bg-indigo-500">Sign up</a>
+    <% end %>
+  </div>
+</nav>
+
+<script>
+  // Toggle mobile menu
+  const mobileMenuButton = document.querySelector('.mobile-menu-button');
+  const mobileMenu = document.querySelector('.mobile-menu');
+  
+  mobileMenuButton.addEventListener('click', () => {
+    mobileMenu.classList.toggle('hidden');
+  });
+</script>
