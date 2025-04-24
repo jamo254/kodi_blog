@@ -25,7 +25,7 @@
               By <%= post.user.email %> on <%= post.created_at.strftime("%B %d, %Y") %>
             </p>
             <div class="text-gray-700 mb-4">
-              <%= truncate(post.content, length: 150) %>
+               <%= truncate(post.content.to_plain_text, length: 150) %>
             </div>
             <%= link_to "Read more", post_path(post), class: "text-indigo-600 hover:text-indigo-800" %>
           </div>
